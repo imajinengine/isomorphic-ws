@@ -1,13 +1,16 @@
 {
-  "name": "isomorphic-ws",
-  "version": "5.0.0",
+  "name": "@imajin/isomorphic-ws",
+  "version": "5.0.0-r26",
   "description": "Isomorphic implementation of WebSocket",
-  "main": "node.js",
   "types": "index.d.ts",
-  "browser": "browser.js",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/heineiuo/isomorphic-ws.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && tsc --module es2022 --outDir dist/esm2020 && tsc --module NodeNext --outDir dist/nodeNext && cp index.d.ts dist/ && cp package.json dist/ &&  node makePublic.js"
   },
   "keywords": [
     "browser",
@@ -23,13 +26,19 @@
     "url": "https://github.com/heineiuo/isomorphic-ws/issues"
   },
   "homepage": "https://github.com/heineiuo/isomorphic-ws#readme",
-  "peerDependencies": {
-    "ws": "*"
+  "dependencies": {
+    "ws": "^8.12.0"
   },
-  "files": [
-    "index.d.ts",
-    "node.js",
-    "browser.js",
-    "README.md"
-  ]
+  "devDependencies": {
+    "@types/ws": "^8.5.4"
+  },
+  "exports": {
+    ".": {
+      "browser": "./esm2020/browser.js",
+      "esm2020": "./esm2020/browser.js",
+      "require": "./node.js",
+      "node": "./nodeNext/node.js",
+      "import": "./esm2020/node.js"
+    }
+  }
 }
